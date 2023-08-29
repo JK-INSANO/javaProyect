@@ -66,6 +66,7 @@ public class Principal extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
+		//EL BOTON DE CARGAR ARCHIVO GUARDA LAS LINEAS DE TEXTO
 		JButton btnNewButton = new JButton("Abrir");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -90,7 +91,7 @@ public class Principal extends JFrame {
 						MostarArchivo p= new MostarArchivo();
 						p.setVisible(true);
 					}
-					
+				//si no se encuentra el archivo, muestro el error y pido que vuelva a rellenar el espacio solicitado
 				}catch (FileNotFoundException e1) {
 					JOptionPane.showMessageDialog(null, "Archivo no encontrado","Error",
 							JOptionPane.ERROR_MESSAGE);
