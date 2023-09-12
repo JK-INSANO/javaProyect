@@ -1,13 +1,16 @@
 package ventanas;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
 public class Principal extends JPanel {
 
-    private JTextField textField;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField textField;
     private JProgressBar progressBar;
     private JButton btnCancelar; // Botón Cancelar
     private SwingWorker<Void, Integer> worker; // Referencia al SwingWorker
