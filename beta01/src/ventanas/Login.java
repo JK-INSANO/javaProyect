@@ -167,6 +167,4 @@ public class Login extends JFrame {
 	    }
 	    return false; // Autenticación fallida
 	}
-	
-	
 }
