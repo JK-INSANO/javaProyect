@@ -1,70 +1,55 @@
 package ventanas;
 import javax.swing.*;
-
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
-public class Principal extends JFrame {
+public class Principal extends JPanel {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
     private JTextField textField;
     private JProgressBar progressBar;
     private JButton btnCancelar; // Botón Cancelar
     private SwingWorker<Void, Integer> worker; // Referencia al SwingWorker
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Principal frame = new Principal();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
     public Principal() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 185);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
+        setLayout(null);
 
         progressBar = new JProgressBar();
         progressBar.setStringPainted(true);
-        progressBar.setBounds(61, 92, 301, 14);
-        contentPane.add(progressBar);
+        progressBar.setBounds(90, 292, 301, 14);
+        add(progressBar);
 
         JLabel lblNewLabel = new JLabel("Nombre del Archivo:");
         lblNewLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        lblNewLabel.setBounds(61, 29, 110, 14);
-        contentPane.add(lblNewLabel);
+        lblNewLabel.setBounds(90, 190, 110, 14);
+        add(lblNewLabel);
 
         textField = new JTextField();
         textField.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        textField.setBounds(182, 27, 180, 20);
-        contentPane.add(textField);
+        textField.setBounds(210, 187, 180, 20);
+        add(textField);
         textField.setColumns(10);
 
         JButton btnNewButton = new JButton("Abrir");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String nameField = textField.getText();
-                cargarArchivoEnSegundoPlano(nameField);
+                if(nameField=="cordenadas") {
+                	CruzMilenioPanel p2= new CruzMilenioPanel();
+					p2.setSize(359,536);
+					p2.setLocation(0,0);
+					removeAll();
+					add(p2, BorderLayout.CENTER);
+					revalidate();
+					repaint();
+                }else {
+                	cargarArchivoEnSegundoPlano(nameField);
+                }
             }
         });
-        btnNewButton.setBounds(273, 58, 89, 23);
-        contentPane.add(btnNewButton);
+        btnNewButton.setBounds(197, 218, 89, 23);
+        add(btnNewButton);
 
         btnCancelar = new JButton("Cancelar"); // Inicialmente invisible
         btnCancelar.addActionListener(new ActionListener() {
@@ -76,8 +61,8 @@ public class Principal extends JFrame {
                 }
             }
         });
-        btnCancelar.setBounds(168, 112, 89, 23);
-        contentPane.add(btnCancelar);
+        btnCancelar.setBounds(197, 312, 89, 23);
+        add(btnCancelar);
         btnCancelar.setVisible(false); // Inicialmente oculto
     }
 
@@ -116,7 +101,7 @@ public class Principal extends JFrame {
 
             @Override
             protected void done() {
-                dispose();
+                // No es necesario llamar a dispose() aquí
                 btnCancelar.setVisible(false); // Ocultar el botón Cancelar al finalizar el proceso
                 if (isCancelled()) {
                     JOptionPane.showMessageDialog(null, "Carga Cancelada", "",
@@ -124,9 +109,30 @@ public class Principal extends JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Cargado Exitosamente", "",
                             JOptionPane.INFORMATION_MESSAGE);
-                    MostarArchivo p = new MostarArchivo();
-                    p.setVisible(true);
+                    // Aquí puedes realizar alguna acción o notificar al JFrame que el proceso ha terminado.
+                    String nameField = textField.getText();
+                    if(nameField.equalsIgnoreCase("cordenadas")) {
+                    	CruzMilenioPanel p2= new CruzMilenioPanel();
+                    	loadPage(p2);
+                    }else if(nameField.equalsIgnoreCase("nodes")){
+                    	//CARGAR EL ARCHIVO DE NODOS-----------------------------------------------------------------------
+                    	/*
+                    	 ----LA IDEA ES CREAR PUROS JPanel PARA INVOCARLOS ACÁ Y ERA, LA RESOLUCIÓN ES DE 470x569
+                    	 NuevoPanel nombrePanel= new NuevoPanel();
+                    	 loadPage(nombrePanel);
+                    	*/
+                    }
+                    
                 }
+            }
+            
+            private void loadPage(JPanel page) {
+				page.setSize(470,536);
+				page.setLocation(0,0);
+				removeAll();
+				add(page, BorderLayout.CENTER);
+				revalidate();
+				repaint();
             }
         };
 
