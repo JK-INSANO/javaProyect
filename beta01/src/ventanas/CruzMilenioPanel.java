@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CruzMilenioPanel extends JPanel {
 
@@ -16,6 +19,22 @@ public class CruzMilenioPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public CruzMilenioPanel() {
+		setLayout(null);
+		
+		JButton btnNewButton = new JButton("Volver");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Principal page= new Principal();
+				page.setSize(470,536);
+		    	page.setLocation(0,0);
+		    	removeAll();
+		    	add(page, BorderLayout.CENTER);
+		    	revalidate();
+		    	repaint();
+			}
+		});
+		btnNewButton.setBounds(371, 502, 89, 23);
+		add(btnNewButton);
         // Configura el panel si es necesario
     }
 

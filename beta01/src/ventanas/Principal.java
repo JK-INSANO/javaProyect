@@ -40,12 +40,7 @@ public class Principal extends JPanel {
                 String nameField = textField.getText();
                 if(nameField=="cordenadas") {
                 	CruzMilenioPanel p2= new CruzMilenioPanel();
-					p2.setSize(359,536);
-					p2.setLocation(0,0);
-					removeAll();
-					add(p2, BorderLayout.CENTER);
-					revalidate();
-					repaint();
+                	loadPage(p2);
                 }else {
                 	cargarArchivoEnSegundoPlano(nameField);
                 }
@@ -129,16 +124,17 @@ public class Principal extends JPanel {
                 }
             }
             
-            private void loadPage(JPanel page) {
-				page.setSize(470,536);
-				page.setLocation(0,0);
-				removeAll();
-				add(page, BorderLayout.CENTER);
-				revalidate();
-				repaint();
-            }
         };
 
         worker.execute(); // Iniciar el trabajo en segundo plano
+    }
+    
+    private void loadPage(JPanel page) {
+    	page.setSize(470,536);
+    	page.setLocation(0,0);
+    	removeAll();
+    	add(page, BorderLayout.CENTER);
+    	revalidate();
+    	repaint();
     }
 }
